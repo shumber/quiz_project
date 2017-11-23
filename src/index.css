@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+quiz {
+  display: flex;
+}
+
+.box {
+  padding: 10px;
+  margin: 10px;
+  background: aqua;
+  text-align: center;
+}
+
+.box_red {
+  padding: 10px;
+  margin: 10px;
+  background: red;
+}
