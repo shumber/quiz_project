@@ -21,3 +21,9 @@ quiz {
   margin: 10px;
   background: red;
 }
+
+.box_yellow {
+  padding: 10px;
+  margin: 10px;
+  background: yellow;
+}
