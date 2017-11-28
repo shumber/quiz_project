@@ -16,6 +16,7 @@ class Quiz extends Component {
       addQuestionButtonText: 'Add Question',
       addAnswerButtonText: 'Add Answer',
       numAnswers: 2,
+      numQuestion: 2,
 
     };
   }
@@ -28,6 +29,9 @@ class Quiz extends Component {
     this.setState({'numAnswers': this.state.numAnswers + 1});
   }
 
+  addQuestion(){
+    this.setState({'numQuestion': this.state.numQuestion +1});
+  }
   
   render() {
     return (
@@ -37,7 +41,7 @@ class Quiz extends Component {
           <Results addResult={() => this.addResult()} addResultsButtonText={this.state.addResultsButtonText}/>
         </div>
         <div id="questions_container" class="box"> questions box
-          <Questions addAnswers={() => this.addAnswer()} addAnswerButtonText={this.state.addAnswerButtonText}/>
+          <Questions addAnswers={() => this.addAnswer()} addAnswerButtonText={this.state.addAnswerButtonText} addQuestion={() => this.addQuestion()} addQuestionButtonText={this.state.addQuestionButtonText}/>
         </div>
       </div>
     );

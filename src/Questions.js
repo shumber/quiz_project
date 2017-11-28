@@ -12,8 +12,9 @@ class Questions extends Component {
                   <Answer />
                   <button onClick={this.props.addAnswer}>{this.props.addAnswerButtonText}</button>
                 </div>
-                <div id="questions_add_button">questions add button <button>Add Question</button></div>
-              </div>
+                <button onClick={this.props.addQuestion}>{this.props.addQuestionButtonText}</button>
+                </div>
+           
         );
     }
 }
