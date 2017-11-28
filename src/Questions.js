@@ -10,7 +10,7 @@ class Questions extends Component {
                 <div id="questions_description">questions description <input type="text"></input></div>
                 <div id="answers_container">
                   <Answer />
-                  <button>Add Answer Option</button>
+                  <button onClick={this.props.addAnswer}>{this.props.addAnswerButtonText}</button>
                 </div>
                 <div id="questions_add_button">questions add button <button>Add Question</button></div>
               </div>
