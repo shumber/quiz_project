@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  text-align: center;
   font-family: sans-serif;
   border-style: solid;
 }
@@ -8,43 +9,90 @@ body {
 
 quiz {
   display: flex;
+
+  
 }
 
 .box {
   padding: 10px;
   margin: 10px;
-  background: aqua;
+  background: white;
   text-align: center;
   border-style: solid;
 }
 
-.result {
+.resultsContainer {
+  display:flex;
+  flex-flow: row wrap;
   padding: 10px;
   margin: 10px;
-  background: orange;
+  background: white;
   text-align: center;
   border-style: solid;
+  border-width: 1px;
+  justify-content: center;
+}
+
+.result {
+  width: 300px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  background: white;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
 
 }
 
 .box_red {
   padding: 10px;
   margin: 10px;
-  background: red;
+  background: lightgrey;
   border-style: solid;
 }
 
-.box_yellow {
-  padding: 10px;
-  margin: 10px;
-  background: yellow;
-  border-style: solid;
-}
-
-.box_green {
+.questionsContainer {
+  display:flex;
+  flex-flow: column wrap;
   padding: 10px;
   margin: 10px;
   background: green;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  justify-content: center;
+}
+
+.questions {
+  display:flex;
+  flex-flow: row wrap;
+  padding: 10px;
+  margin: 10px;
+  background: white;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  justify-content: center;
+
+}
+
+.answer {
+  width: 300px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  background: white;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.box_green {
+  display:flex;
+  padding: 10px;
+  margin: 10px;
+  background: white;
   border-style: solid;
 
 }

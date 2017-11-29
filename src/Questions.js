@@ -4,7 +4,7 @@ import Answer from './Answer';
 class Questions extends Component {
     render() {
         return (
-              <div id="question">
+              <div id="question" class="questions">
                 <div id="questions_title">questions title <input type="text"></input></div>
                 <div id="questions_description">questions description <input type="text"></input></div>
                 <div id="answers_container">
@@ -12,7 +12,7 @@ class Questions extends Component {
                   <button onClick={this.props.addAnswer}>{this.props.addAnswerButtonText}</button>
                 </div>
                 <div id="questions_add_button">
-                  <button onClick={this.props.addQuestion}>{this.props.addQuestionButtonText}</button></div>
+                  <button onClick={this.props.addQuestion}>{this.props.saveQuestionButtonText}</button></div>
               </div>
         );
     }
