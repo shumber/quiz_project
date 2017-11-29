@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  border-style: solid;
 }
 
 
@@ -14,16 +15,36 @@ quiz {
   margin: 10px;
   background: aqua;
   text-align: center;
+  border-style: solid;
+}
+
+.result {
+  padding: 10px;
+  margin: 10px;
+  background: orange;
+  text-align: center;
+  border-style: solid;
+
 }
 
 .box_red {
   padding: 10px;
   margin: 10px;
   background: red;
+  border-style: solid;
 }
 
 .box_yellow {
   padding: 10px;
   margin: 10px;
   background: yellow;
+  border-style: solid;
+}
+
+.box_green {
+  padding: 10px;
+  margin: 10px;
+  background: green;
+  border-style: solid;
+
 }
