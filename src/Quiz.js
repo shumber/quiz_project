@@ -10,6 +10,15 @@ class Quiz extends Component {
     super(props);
     this.state = {
       quizInfoTitle: null,
+      label_quizTitle: 'Add a quiz title:',
+      label_quizDescription: 'Add a description of the quiz',
+      label_resultTitle: 'Add a result title',
+      label_resultDescription: 'Add a result Description',
+      label_questionTitle: 'Add a question title',
+      label_questionDescription: 'Add a question description',
+      label_answerText: 'Add answer text',
+      label_selectRelatedResult: 'Select related result',
+
       resultsBoxTitle: 'Enter each of the results',
       questionsBoxTitle: 'Enter each of the questions, and their answer options',
       addResultsButtonText: 'Add Result',
