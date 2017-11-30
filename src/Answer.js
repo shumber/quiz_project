@@ -4,7 +4,7 @@ class Answer extends Component {
     render() {
         return (
             <div id="Answer" class="answer">
-                <div id="answer_text"><input type="text" class="textInput" value="Insert answer text"></input></div>
+                <div id="answer_text"><input type="text" class="textInput" placeholder ="Insert answer text"></input></div>
                 <div id="related_result">
                     <select class="textInput">
                         <option selected disabled>Select Related Result</option>

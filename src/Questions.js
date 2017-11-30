@@ -30,10 +30,9 @@ class Questions extends Component {
         return (
                 <div id="question" class="questions">
                     <div class="questionsLeft">
-                        <div id="questions_title"><input type="text" class="textInput" value="Add question text" onChange={(e) => this.handleTitleChange(e)}></input></div>
-                        <div id="questions_description"><textarea name="questionDescription" class="textInput" cols="40" rows="4" value="Add question description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
+                        <div id="questions_title"><input type="text" class="textInput" placeholder="Add question text" onChange={(e) => this.handleTitleChange(e)}></input></div>
+                        <div id="questions_description"><textarea name="questionDescription" class="textInput" cols="40" rows="4" placeholder="Add question description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
                         <div id="questions_add_button">
-                            <button onClick={() => this.props.addQuestion(this.state.title, this.state.description)}>{this.props.addQuestionButtonText}</button>
                         </div>
                         <div id="questions_add_button">
                             <button onClick={() => this.props.deleteQuestion(this.state.questionId)}>{this.props.deleteQuestionButtonText}</button>
@@ -46,7 +45,7 @@ class Questions extends Component {
                             <button onClick={() => this.props.deleteAnswer(this.state.description)}>{this.props.deleteAnswerButtonText}</button>
                         </div>
                     </div>
-                    
+   
                 </div>
         );
     }

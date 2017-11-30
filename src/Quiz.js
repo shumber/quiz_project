@@ -124,6 +124,7 @@ class Quiz extends Component {
                 />
           )}
         </div>
+        <button onClick={() => this.addQuestion(this.state.questions.title, this.state.questions.description)}>{this.state.addQuestionButtonText}</button>
       </div>
     );
   }
