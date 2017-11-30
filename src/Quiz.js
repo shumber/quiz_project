@@ -26,6 +26,7 @@ class Quiz extends Component {
       deleteResultButtonText: 'Delete Result',
       addQuestionButtonText: 'Add Question',
       saveQuestionButtonText: 'Save Question',
+      deleteQuestionButtonText: 'Delete Question',
       addAnswerButtonText: 'Add Answer',
       saveAnswerButtonText: 'Save Answer',
       deleteAnswerButtonText: 'Delete Answer',
@@ -64,20 +65,30 @@ class Quiz extends Component {
     this.setState({'results': results});
   }
 
-  addAnswer() {
-    //todo
+  addAnswer(questionId, description, associatedResult) {
+    const answer = this.state.questions[questionId].answers.slice();
+    answer.push({id: shortid.generate(), description: description, associatedResult: associatedResult});
+    //this.setState({'question': results}); do we have to delete the question from questions, add the answer to the question, and then add question back into questions?
   }
 
-  deleteAnswer() {
-    //todo
+  deleteAnswer(questionId, answerId) {
+    const answer = this.state.questions[questionId].answers.slice();
+    let i = answer.map(item => item.id).indexOf(answerId);
+    answer.splice(i, 1);
+    //this.setState({'results': results});
   }
 
-  addQuestion() {
-    //todo
+  addQuestion(title, description) {
+    const question = this.state.questions.slice();
+    question.push({id: shortid.generate(), title: title, description: description});
+    this.setState({'questions': question});
   }
 
   deleteQuestion(questionId) {
-    //todo
+    const questions = this.state.questions.slice();
+    let i = questions.map(item => item.id).indexOf(questionId);
+    questions.splice(i, 1);
+    this.setState({'questions': questions});
   }
 
 
@@ -103,8 +114,14 @@ class Quiz extends Component {
                 questionsId={id} 
                 addAnswers={() => this.addAnswer()} 
                 addAnswerButtonText={this.state.addAnswerButtonText} 
-                addQuestion={() => this.addQuestion()} 
-                addQuestionButtonText={this.state.addQuestionButtonText}/>
+                addQuestion={(...args) => this.addQuestion(...args)}
+                deleteQuestion={(...args) => this.deleteQuestion(...args)}
+                addAnswer={(...args) => this.addQuestion(...args)}
+                deleteAnswer={(...args) => this.addQuestion(...args)}   
+                addQuestionButtonText={this.state.addQuestionButtonText}
+                deleteQuestionButtonText={this.state.deleteQuestionButtonText}
+                deleteAnswerButtonText={this.state.deleteAnswerButtonText}
+                />
           )}
         </div>
       </div>
