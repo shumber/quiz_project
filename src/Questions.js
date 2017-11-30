@@ -8,7 +8,6 @@ class Questions extends Component {
         this.state = {
             title: '',
             description: '',
-            questionId: '',
         }
     }
 
@@ -24,6 +23,17 @@ class Questions extends Component {
     });
     }
 
+<<<<<<< HEAD
+=======
+    handleAssociatedResultChange(event) {
+        this.setState({
+            description: event.target.value
+        });
+    }
+
+
+
+>>>>>>> master
     render() {
         return (
                 <div id="question" class="questions">
@@ -32,16 +42,24 @@ class Questions extends Component {
                         <div id="questions_description"><textarea name="questionDescription" class="textInput" cols="40" rows="4" placeholder="Add question description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
                         <div id="questions_add_button">
                         </div>
-                        <div id="questions_add_button">
-                            <button onClick={() => this.props.deleteQuestion(this.state.questionId)}>{this.props.deleteQuestionButtonText}</button>
+                        <div id="questions_delete_button">
+                            <button onClick={() => this.props.deleteQuestion(this.props.questionId)}>{this.props.deleteQuestionButtonText}</button>
                         </div>
                     </div>
                     <div class="questionsRight">
                         <div id="answers_container">
-                            <Answer />
-                            <button onClick={() => this.props.addAnswer(this.state.description)}>{this.props.addAnswerButtonText}</button>
-                            <button onClick={() => this.props.deleteAnswer(this.state.description)}>{this.props.deleteAnswerButtonText}</button>
+                        {this.props.answers.map((answer) =>
+                            <Answer
+                              questionId = {this.props.questionId} 
+                              answerId={answer.id}
+                              deleteAnswer={this.props.deleteAnswer}   
+                              deleteAnswerButtonText={this.props.deleteAnswerButtonText}
+                              />
+                        )}
+
+                            
                         </div>
+                        <button onClick={() => this.props.addAnswer(this.props.questionId, this.state.description, 1)}>{this.props.addAnswerButtonText}</button>
                     </div>
    
                 </div>

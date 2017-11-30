@@ -34,16 +34,16 @@ class Quiz extends Component {
       quizTitle: null,
       quizDescription: null,
       results: [{
-        id: null,
+        id: shortid.generate(),
         title: null,
         description: null,
       }],
       questions: [{
-        id: null,
+        id: shortid.generate(),
         title: null,
         description: null,
         answers: [{
-          id: null,
+          id: shortid.generate(),
           description: null,
           associatedResult: null,
         }]
@@ -66,22 +66,24 @@ class Quiz extends Component {
   }
 
   addAnswer(questionId, description, associatedResult) {
-    const answer = this.state.questions[questionId].answers.slice();
-    answer.push({id: shortid.generate(), description: description, associatedResult: associatedResult});
-    //this.setState({'question': results}); do we have to delete the question from questions, add the answer to the question, and then add question back into questions?
+    const questions = this.state.questions
+    let i = questions.map(item => item.id).indexOf(questionId);
+    questions[i].answers.push({id: shortid.generate(), description: description, associatedResult: associatedResult});
+    this.setState({'questions': questions});
   }
 
   deleteAnswer(questionId, answerId) {
-    const answer = this.state.questions[questionId].answers.slice();
-    let i = answer.map(item => item.id).indexOf(answerId);
-    answer.splice(i, 1);
-    //this.setState({'results': results});
+    const questions = this.state.questions.slice();
+    let i = questions.map(item => item.id).indexOf(questionId);
+    let j = questions[i].answers.map(item => item.id).indexOf(answerId)
+    questions[i].answers.splice(j, 1);
+    this.setState({'questions': questions});
   }
 
   addQuestion(title, description) {
-    const question = this.state.questions.slice();
-    question.push({id: shortid.generate(), title: title, description: description});
-    this.setState({'questions': question});
+    const questions = this.state.questions.slice();
+    questions.push({id: shortid.generate(), title: title, description: description});
+    this.setState({'questions': questions});
   }
 
   deleteQuestion(questionId) {
@@ -92,15 +94,14 @@ class Quiz extends Component {
   }
 
 
-
   render() {
     return (
-      <div id="Quiz_container" className="box_red"> Create a quiz!<button>Save Quiz</button>
+      <div id="Quiz_container" className="box_red"> Create a quiz!<div><button>Save Quiz</button></div>
         <Quiz_info />
         Add your results:<div id="Results_container" class="resultsContainer">
-          {this.state.results.map((id) => 
+          {this.state.results.map((result) => 
             <Results 
-              resultId={id} 
+              resultId={result.id} 
               addResult={(...args) => this.addResult(...args)} 
               deleteResult={(...args) => this.deleteResult(...args)} 
               addResultsButtonText={this.state.addResultsButtonText} 
@@ -109,15 +110,16 @@ class Quiz extends Component {
           )}
         </div>
         <div id="questions_container" class="questionsContainer"> Add your questions:
-          {this.state.questions.map((id) =>
+          {this.state.questions.map((question) =>
               <Questions 
-                questionsId={id} 
+                questionId={question.id}
+                answers = {question.answers} 
                 addAnswers={() => this.addAnswer()} 
                 addAnswerButtonText={this.state.addAnswerButtonText} 
                 addQuestion={(...args) => this.addQuestion(...args)}
                 deleteQuestion={(...args) => this.deleteQuestion(...args)}
-                addAnswer={(...args) => this.addQuestion(...args)}
-                deleteAnswer={(...args) => this.addQuestion(...args)}   
+                addAnswer={(...args) => this.addAnswer(...args)}
+                deleteAnswer={(...args) => this.deleteAnswer(...args)}   
                 addQuestionButtonText={this.state.addQuestionButtonText}
                 deleteQuestionButtonText={this.state.deleteQuestionButtonText}
                 deleteAnswerButtonText={this.state.deleteAnswerButtonText}
