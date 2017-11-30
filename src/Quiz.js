@@ -11,16 +11,18 @@ class Quiz extends Component {
     this.state = {
       quizInfoTitle: null,
       resultsBoxTitle: 'Enter each of the results',
-      numResults: 2,
       questionsBoxTitle: 'Enter each of the questions, and their answer options',
       addResultsButtonText: 'Add Result',
+      saveResultButtonText: 'Save Result',
+      deleteResultButtonText: 'Delete Result',
       addQuestionButtonText: 'Add Question',
+      saveQuestionButtonText: 'Save Question',
       addAnswerButtonText: 'Add Answer',
-      numAnswers: 2,
-      numQuestions: 2,
+      saveAnswerButtonText: 'Save Answer',
+      deleteAnswerButtonText: 'Delete Answer',
 
-      title: null,
-      description: null,
+      quizTitle: null,
+      quizDescription: null,
       results: [{
         id: null,
         title: null,
@@ -36,40 +38,64 @@ class Quiz extends Component {
           associatedResult: null,
         }]
       }]
-      
-
     };
   }
 
-  addResult() {
+  addResult(title, description) {
     const results = this.state.results.slice();
-    results.push({id: shortid.generate(), title: 'Temp Title', description: 'Temp description'});
+    results.push({id: shortid.generate(), title: title, description: description});
     this.setState({'results': results});
     //this.setState({'numResults': this.state.numResults + 1});
   }
 
+  deleteResult(resultId) {
+    const results = this.state.results.slice();
+    let i = results.map(item => item.id).indexOf(resultId);
+    results.splice(i, 1);
+    this.setState({'results': results});
+  }
+
   addAnswer() {
-    this.setState({'numAnswers': this.state.numAnswers + 1});
+    //todo
+  }
+
+  deleteAnswer() {
+    //todo
   }
 
   addQuestion() {
-    this.setState({'numQuestions': this.state.numQuestions + 1});
+    //todo
   }
 
-  
+  deleteQuestion(questionId) {
+    //todo
+  }
+
+
+
   render() {
     return (
-      <div id="Quiz_container" className="box_red">quiz box <button>Save Quiz</button>
+      <div id="Quiz_container" className="box_red"> Create a quiz!<button>Save Quiz</button>
         <Quiz_info />
-        <div id="Results_container" class="box">results box
+        Add your results:<div id="Results_container" class="resultsContainer">
           {this.state.results.map((id) => 
-            <Results resultId={id} addResult={() => this.addResult()} addResultsButtonText={this.state.addResultsButtonText}/>
+            <Results 
+              resultId={id} 
+              addResult={(...args) => this.addResult(...args)} 
+              deleteResult={(...args) => this.deleteResult(...args)} 
+              addResultsButtonText={this.state.addResultsButtonText} 
+              deleteResultsButtonText={this.state.deleteResultButtonText}
+              />
           )}
         </div>
-        <div id="questions_container" class="box"> questions box
+        <div id="questions_container" class="questionsContainer"> Add your questions:
           {this.state.questions.map((id) =>
-              <Questions questionsId={id} addAnswers={() => this.addAnswer()} addAnswerButtonText={this.state.addAnswerButtonText} 
-                addQuestion={() => this.addQuestion()} addQuestionButtonText={this.state.addQuestionButtonText}/>
+              <Questions 
+                questionsId={id} 
+                addAnswers={() => this.addAnswer()} 
+                addAnswerButtonText={this.state.addAnswerButtonText} 
+                addQuestion={() => this.addQuestion()} 
+                addQuestionButtonText={this.state.addQuestionButtonText}/>
           )}
         </div>
       </div>
