@@ -2,18 +2,52 @@ import React, { Component } from 'react';
 import Answer from './Answer';
 
 class Questions extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            description: '',
+            questionId: '',
+        }
+    }
+
+    handleTitleChange(event) {
+        this.setState({
+            title: event.target.value
+        });
+    }
+
+    handleDescriptionChange(event) {
+    this.setState({
+        description: event.target.value
+    });
+    }
+
+
+
     render() {
         return (
-              <div id="question" class="questions">
-                <div id="questions_title">Add questions title: <input type="text"></input></div>
-                <div id="questions_description">Add questions description: <input type="text"></input></div>
-                <div id="answers_container">
-                  <Answer />
-                  <button onClick={this.props.addAnswer}>{this.props.addAnswerButtonText}</button>
+                <div id="question" class="questions">
+                    <div class="questionsLeft">
+                        <div id="questions_title"><input type="text" class="textInput" value="Add question text" onChange={(e) => this.handleTitleChange(e)}></input></div>
+                        <div id="questions_description"><textarea name="questionDescription" class="textInput" cols="40" rows="4" value="Add question description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
+                        <div id="questions_add_button">
+                            <button onClick={() => this.props.addQuestion(this.state.title, this.state.description)}>{this.props.addQuestionButtonText}</button>
+                        </div>
+                        <div id="questions_add_button">
+                            <button onClick={() => this.props.deleteQuestion(this.state.questionId)}>{this.props.deleteQuestionButtonText}</button>
+                        </div>
+                    </div>
+                    <div class="questionsRight">
+                        <div id="answers_container">
+                            <Answer />
+                            <button onClick={() => this.props.addAnswer(this.state.description)}>{this.props.addAnswerButtonText}</button>
+                            <button onClick={() => this.props.deleteAnswer(this.state.description)}>{this.props.deleteAnswerButtonText}</button>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div id="questions_add_button">
-                  <button onClick={this.props.addQuestion}>{this.props.saveQuestionButtonText}</button></div>
-              </div>
         );
     }
 }
