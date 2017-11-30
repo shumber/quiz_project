@@ -23,17 +23,6 @@ class Questions extends Component {
     });
     }
 
-<<<<<<< HEAD
-=======
-    handleAssociatedResultChange(event) {
-        this.setState({
-            description: event.target.value
-        });
-    }
-
-
-
->>>>>>> master
     render() {
         return (
                 <div id="question" class="questions">
