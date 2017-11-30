@@ -32,8 +32,8 @@ class Results extends Component {
     render() {
         return (
             <div id="Results" class="result">
-                <div id="results_title">results title<input type="text" onChange={(e) => this.handleTitleChange(e)}></input></div>
-                <div id="results_description">results description <input type="text" onChange={(e) => this.handleDescriptionChange(e)}></input></div>
+                <div id="results_title">Add results title:<input type="text" onChange={(e) => this.handleTitleChange(e)}></input></div>
+                <div id="results_description">Add results description:<input type="text" onChange={(e) => this.handleDescriptionChange(e)}></input></div>
                 <div id="results_add_button">
                     <button onClick={() => this.props.addResult(this.state.title, this.state.description)}>{this.props.addResultsButtonText}</button>
                     <button onClick={() => this.props.deleteResult(this.state.resultId)}>{this.props.deleteResultsButtonText}</button>
