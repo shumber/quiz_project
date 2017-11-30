@@ -112,7 +112,9 @@ class Quiz extends Component {
               />
           )}
         </div>
-        <div id="questions_container" className="questionsContainer"> Add your questions:
+        <button onClick={() => this.addResult(this.state.title, this.state.description)}>{this.state.addResultsButtonText}</button>
+        <div id="questions_container" class="questionsContainer"> Add your questions:
+
           {this.state.questions.map((question) =>
               <Questions 
                 questionId={question.id}
@@ -129,6 +131,7 @@ class Quiz extends Component {
                 />
           )}
         </div>
+        <button onClick={() => this.addQuestion(this.state.questions.title, this.state.questions.description)}>{this.state.addQuestionButtonText}</button>
       </div>
     );
   }
