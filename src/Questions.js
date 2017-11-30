@@ -24,8 +24,6 @@ class Questions extends Component {
     });
     }
 
-
-
     render() {
         return (
                 <div id="question" class="questions">
