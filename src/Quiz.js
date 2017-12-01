@@ -35,7 +35,7 @@ class Quiz extends Component {
       quizDescription: null,
       results: [{
         id: shortid.generate(),
-        title: null,
+        title: 'ok',
         description: null,
       }],
       questions: [{
@@ -51,11 +51,25 @@ class Quiz extends Component {
     };
   }
 
-  addResult(title, description) {
+  addResult() {
     const results = this.state.results.slice();
-    results.push({id: shortid.generate(), title: title, description: description});
+    results.push({id: shortid.generate()});
     this.setState({'results': results});
     //this.setState({'numResults': this.state.numResults + 1});
+  }
+
+  updateResultTitle(resultId, title) {
+    const results = this.state.results.slice();
+    let i = results.map(item => item.id).indexOf(resultId);
+    results[i].title = title;
+    this.setState({'results':results})
+  }
+
+  updateResultDescription(resultId, description) {
+    const results = this.state.results.slice();
+    let i = results.map(item => item.id).indexOf(resultId);
+    results[i].description = description;
+    this.setState({'results':results})
   }
 
   deleteResult(resultId) {
@@ -104,7 +118,9 @@ class Quiz extends Component {
         Add your results:<div id="Results_container" className="resultsContainer">
           {this.state.results.map((result) => 
             <Results 
-              resultId={result.id} 
+              resultId={result.id}
+              updateResultTitle={(...args) => this.updateResultTitle(...args)}
+              updateResultDescription={(...args) => this.updateResultDescription(...args)}  
               addResult={(...args) => this.addResult(...args)} 
               deleteResult={(...args) => this.deleteResult(...args)} 
               addResultsButtonText={this.state.addResultsButtonText} 
@@ -112,13 +128,14 @@ class Quiz extends Component {
               />
           )}
         </div>
-        <button onClick={() => this.addResult(this.state.title, this.state.description)}>{this.state.addResultsButtonText}</button>
+        <button onClick={() => this.addResult()}>{this.state.addResultsButtonText}</button>
         <div id="questions_container" class="questionsContainer"> Add your questions:
 
           {this.state.questions.map((question) =>
               <Questions 
                 questionId={question.id}
-                answers = {question.answers} 
+                answers = {question.answers}
+                results = {this.state.results} 
                 addAnswers={() => this.addAnswer()} 
                 addAnswerButtonText={this.state.addAnswerButtonText} 
                 addQuestion={(...args) => this.addQuestion(...args)}

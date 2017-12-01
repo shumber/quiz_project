@@ -11,15 +11,11 @@ class Results extends Component {
     }
 
     handleTitleChange(event) {
-        this.setState({
-          title: event.target.value
-        });
+        this.props.updateResultTitle(this.props.resultId, event.target.value);
     }
 
     handleDescriptionChange(event) {
-    this.setState({
-        description: event.target.value
-    });
+        this.props.updateResultDescription(this.props.resultId, event.target.value);
     }
     
     
@@ -35,7 +31,7 @@ class Results extends Component {
                 <div id="results_title"><input type="text" className="textInput" placeholder="Add result title" onChange={(e) => this.handleTitleChange(e)}></input></div>
                 <div id="results_description"><textarea name="questionDescription" className="textInput" cols="40" rows="5" placeholder="Add result description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
                 <div id="results_add_button">
-                    <button onClick={() => this.props.deleteResult(this.state.resultId)}>{this.props.deleteResultsButtonText}</button>
+                    <button onClick={() => this.props.deleteResult(this.props.resultId)}>{this.props.deleteResultsButtonText}</button>
                 </div>
             </div>
             
