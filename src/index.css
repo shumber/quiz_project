@@ -88,7 +88,7 @@ quiz {
 
 .questionsRight {
   display:flex;
-  flex-wrap: wrap;
+  flex-wrap: row wrap;
   width: 550px;
   padding: 10px;
   margin: 10px;

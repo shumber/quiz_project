@@ -43,6 +43,7 @@ class Questions extends Component {
                               answerId={answer.id}
                               deleteAnswer={this.props.deleteAnswer}   
                               deleteAnswerButtonText={this.props.deleteAnswerButtonText}
+                              results = {this.props.results}
                               />
                         )}
                         </div>
