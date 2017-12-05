@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Quiz.css';
 import Quiz from './Quiz';
+import Testtaking from './Testtaking';
 var shortid = require('shortid');
 
 
@@ -132,6 +133,11 @@ class QuizManager extends Component {
         this.setState({'quizes': quizes});
       }
 
+      updateTest(){
+        const quizes = this.state.quizes.slice();
+        
+      }
+
     //need updateQuestionTitle()
     //need updateQuestionDescription()
     //need updateAnswerText()
@@ -142,7 +148,6 @@ class QuizManager extends Component {
         return (
             <div id="Quiz_manager" className="">Manage Quizes!
                 <div className="">Edit existing quiz
-
                 </div>
                 <div className="addQuiz"> <button className="addButton" onClick={() => this.addQuiz()}>Add Quiz</button> </div>
                     <Quiz 
@@ -159,6 +164,9 @@ class QuizManager extends Component {
                         addAnswer={(...args) => this.addAnswer(...args)}
                         deleteAnswer={(...args) => this.deleteAnswer(...args)}  
                     />
+            <button className="saveButton" onClick={() => this.props.updateTest()}> >Preview your test</button>
+            <Testtaking/>
+
             </div>
         );
     }
