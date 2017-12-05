@@ -33,7 +33,7 @@ class Answer extends Component {
                         )}
                     </select>
                 </div>
-                <button onClick={() => this.props.deleteAnswer(this.props.questionId, this.props.answerId)}>Delete answer</button>
+                <button className="deleteButton" onClick={() => this.props.deleteAnswer(this.props.quizId, this.props.questionId, this.props.answerId)}>Delete answer</button>
             </div>
         );
     }

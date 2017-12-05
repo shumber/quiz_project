@@ -32,23 +32,23 @@ class Questions extends Component {
                         <div id="questions_add_button">
                         </div>
                         <div id="questions_delete_button">
-                            <button onClick={() => this.props.deleteQuestion(this.props.question.id)}>Delete Question</button>
+                            <button className="deleteButton" onClick={() => this.props.deleteQuestion(this.props.quizId, this.props.question.id)}>Delete Question</button>
                         </div>
                     </div>
                     <div className="questionsRight">
                         <div id="answers_container">
                         {this.props.question.answers.map((answer) =>
                             <Answer
+                              quizId = {this.props.quizId}
                               answer = {answer}
-                              questionId = {this.props.questionId} 
+                              questionId = {this.props.question.id} 
                               answerId={answer.id}
                               deleteAnswer={this.props.deleteAnswer}   
-                              deleteAnswerButtonText={this.props.deleteAnswerButtonText}
                               results = {this.props.results}
                               />
                         )}
                         </div>
-                        <button onClick={() => this.props.addAnswer(this.props.questionId, this.state.description, 1)}>Add answer</button>
+                        <button className="addButton" onClick={() => this.props.addAnswer(this.props.quizId, this.props.question.id, this.state.description, 1)}>Add answer</button>
                     </div>
    
                 </div>

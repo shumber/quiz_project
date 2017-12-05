@@ -11,19 +11,13 @@ class Results extends Component {
     }
 
     handleTitleChange(event) {
-        this.props.updateResultTitle(this.props.resultId, event.target.value);
+        this.props.updateResultTitle(this.props.quizId, this.props.result.id, event.target.value);
     }
 
     handleDescriptionChange(event) {
-        this.props.updateResultDescription(this.props.resultId, event.target.value);
+        this.props.updateResultDescription(this.props.quizId, this.props.result.id, event.target.value);
     }
     
-    
-      handleSubmit(event) {
-        event.preventDefault();
-    
-        this.props.onSelectImage(this.state.url);
-      }
 
     render() {
         return (
@@ -31,7 +25,7 @@ class Results extends Component {
                 <div id="results_title"><input type="text" className="textInput" placeholder={this.props.result.title} onChange={(e) => this.handleTitleChange(e)}></input></div>
                 <div id="results_description"><textarea name="questionDescription" className="textInput" cols="40" rows="5" placeholder={this.props.result.description} onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
                 <div id="results_add_button">
-                    <button onClick={() => this.props.deleteResult(this.props.result.id)}>Delete Result</button>
+                    <button className="deleteButton" onClick={() => this.props.deleteResult(this.props.quizId, this.props.result.id)}>Delete Result</button>
                 </div>
             </div>
             
