@@ -7,7 +7,8 @@ import Quiz_info from './Quiz_info';
 import Questions from './Questions';
 import Results from './Results';
 import Answers from './Answer';
+import QuizManager from './QuizManager';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Quiz />, document.getElementById('root'));
+ReactDOM.render(<QuizManager />, document.getElementById('root'));
 registerServiceWorker();

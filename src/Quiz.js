@@ -9,43 +9,21 @@ class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quizInfoTitle: null,
-      label_quizTitle: 'Add a quiz title:',
-      label_quizDescription: 'Add a description of the quiz',
-      label_resultTitle: 'Add a result title',
-      label_resultDescription: 'Add a result Description',
-      label_questionTitle: 'Add a question title',
-      label_questionDescription: 'Add a question description',
-      label_answerText: 'Add answer text',
-      label_selectRelatedResult: 'Select related result',
-
-      resultsBoxTitle: 'Enter each of the results',
-      questionsBoxTitle: 'Enter each of the questions, and their answer options',
-      addResultsButtonText: 'Add Result',
-      saveResultButtonText: 'Save Result',
-      deleteResultButtonText: 'Delete Result',
-      addQuestionButtonText: 'Add Question',
-      saveQuestionButtonText: 'Save Question',
-      deleteQuestionButtonText: 'Delete Question',
-      addAnswerButtonText: 'Add Answer',
-      saveAnswerButtonText: 'Save Answer',
-      deleteAnswerButtonText: 'Delete Answer',
-
-      quizTitle: null,
-      quizDescription: null,
+      quizTitle: 'Add quiz title',
+      quizDescription: 'Add quiz description',
       results: [{
         id: shortid.generate(),
-        title: 'ok',
-        description: null,
+        title: 'Add result title',
+        description: 'Add result description',
       }],
       questions: [{
         id: shortid.generate(),
-        title: null,
-        description: null,
+        title: 'Add question title',
+        description: 'Add qudstion description',
         answers: [{
           id: shortid.generate(),
-          description: null,
-          associatedResult: null,
+          description: 'Add answer title',
+          associatedResult: 'Select related result',
         }]
       }]
     };
@@ -53,7 +31,7 @@ class Quiz extends Component {
 
   addResult() {
     const results = this.state.results.slice();
-    results.push({id: shortid.generate()});
+    results.push({id: shortid.generate(), title:'Add result title', description:'Add result description'});
     this.setState({'results': results});
     //this.setState({'numResults': this.state.numResults + 1});
   }
@@ -98,9 +76,9 @@ class Quiz extends Component {
     const questions = this.state.questions.slice();
     let answers = [{
       id: shortid.generate(),
-      description: null,
+      description: 'Add answer text',
       associatedResult: null}]
-    questions.push({id: shortid.generate(), title: title, description: description, answers: answers});
+    questions.push({id: shortid.generate(), title: 'Add question title', description: 'Add question Description', answers: answers});
     this.setState({'questions': questions});
   }
 
@@ -113,12 +91,12 @@ class Quiz extends Component {
 
   render() {
     return (
-      <div id="Quiz_container" className="box_red"> Create a quiz!<div><button>Save Quiz</button></div>
+      <div id="Quiz_container" className="box_red"> <blink>Create a quiz!</blink><div><button>Save Quiz</button></div>
         <Quiz_info />
         Add your results:<div id="Results_container" className="resultsContainer">
           {this.state.results.map((result) => 
             <Results 
-              resultId={result.id}
+              result = {result}
               updateResultTitle={(...args) => this.updateResultTitle(...args)}
               updateResultDescription={(...args) => this.updateResultDescription(...args)}  
               addResult={(...args) => this.addResult(...args)} 
@@ -128,13 +106,12 @@ class Quiz extends Component {
               />
           )}
         </div>
-        <button onClick={() => this.addResult()}>{this.state.addResultsButtonText}</button>
+        <button onClick={() => this.addResult()}>Add result</button>
         <div id="questions_container" class="questionsContainer"> Add your questions:
 
           {this.state.questions.map((question) =>
               <Questions 
-                questionId={question.id}
-                answers = {question.answers}
+                question = {question}
                 results = {this.state.results} 
                 addAnswers={() => this.addAnswer()} 
                 addAnswerButtonText={this.state.addAnswerButtonText} 
@@ -148,7 +125,7 @@ class Quiz extends Component {
                 />
           )}
         </div>
-        <button onClick={() => this.addQuestion(this.state.questions.title, this.state.questions.description)}>{this.state.addQuestionButtonText}</button>
+        <button onClick={() => this.addQuestion(this.state.questions.title, this.state.questions.description)}>Add question</button>
       </div>
     );
   }
