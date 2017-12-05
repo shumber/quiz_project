@@ -15,7 +15,8 @@ class Quiz extends Component {
 
   render() {
     return (
-      <div id="Quiz_container" className="box_red"> <blink>Create a quiz!</blink><div><button className="saveButton">Save Quiz</button></div>
+      <div id="Quiz_container" className="box_red"> <blink>Create a quiz!</blink><div>
+        <button className="saveButton" onClick={() => this.props.updateTest()}> >Save Quiz</button></div>
         <Quiz_info />
         Add your results:<div id="Results_container" className="resultsContainer">
           {this.props.quiz.results.map((result) => 
