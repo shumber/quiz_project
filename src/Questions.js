@@ -27,18 +27,19 @@ class Questions extends Component {
         return (
                 <div id="question" className="questions">
                     <div className="questionsLeft">
-                        <div id="questions_title"><input type="text" className="textInput" placeholder="Add question text" onChange={(e) => this.handleTitleChange(e)}></input></div>
-                        <div id="questions_description"><textarea name="questionDescription" className="textInput" cols="40" rows="4" placeholder="Add question description" onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
+                        <div id="questions_title"><input type="text" className="textInput" placeholder={this.props.question.title} onChange={(e) => this.handleTitleChange(e)}></input></div>
+                        <div id="questions_description"><textarea name="questionDescription" className="textInput" cols="40" rows="4" placeholder={this.props.question.description} onChange={(e) => this.handleDescriptionChange(e)}></textarea></div>
                         <div id="questions_add_button">
                         </div>
                         <div id="questions_delete_button">
-                            <button onClick={() => this.props.deleteQuestion(this.props.questionId)}>{this.props.deleteQuestionButtonText}</button>
+                            <button onClick={() => this.props.deleteQuestion(this.props.question.id)}>Delete Question</button>
                         </div>
                     </div>
                     <div className="questionsRight">
                         <div id="answers_container">
-                        {this.props.answers.map((answer) =>
+                        {this.props.question.answers.map((answer) =>
                             <Answer
+                              answer = {answer}
                               questionId = {this.props.questionId} 
                               answerId={answer.id}
                               deleteAnswer={this.props.deleteAnswer}   
@@ -47,7 +48,7 @@ class Questions extends Component {
                               />
                         )}
                         </div>
-                        <button onClick={() => this.props.addAnswer(this.props.questionId, this.state.description, 1)}>{this.props.addAnswerButtonText}</button>
+                        <button onClick={() => this.props.addAnswer(this.props.questionId, this.state.description, 1)}>Add answer</button>
                     </div>
    
                 </div>
