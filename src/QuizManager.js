@@ -7,36 +7,37 @@ var shortid = require('shortid');
 class QuizManager extends Component {
     
     constructor(props) {
-        let quizes = [{}];
+        super(props);
+
         const savedState = window.localStorage.getItem("state");
         if (savedState) {
-            quizes = JSON.parse(savedState);
+            this.state = JSON.parse(savedState);
         } else {
-            quizes = [{}] // initial state
-        }  
-        super(props);
-        this.state = {
-            quizes: [{
-                quizId: shortid.generate(),
-                quizTitle: 'Add quiz title',
-                quizDescription: 'Add quiz description',
-                results: [{
+            this.state = {
+                quizes: [{
                     id: shortid.generate(),
-                    title: 'Add result title',
-                    description: 'Add result description',
-                }],
-                questions: [{
-                    id: shortid.generate(),
-                    title: 'Add question title',
-                    description: 'Add qudstion description',
-                    answers: [{
-                    id: shortid.generate(),
-                    description: 'Add answer title',
-                    associatedResult: 'Select related result',
+                    quizTitle: 'Add quiz title',
+                    quizDescription: 'Add quiz description',
+                    draft: 1,
+                    results: [{
+                        id: shortid.generate(),
+                        title: 'Add result title',
+                        description: 'Add result description',
+                    }],
+                    questions: [{
+                        id: shortid.generate(),
+                        title: 'Add question title',
+                        description: 'Add qudstion description',
+                        answers: [{
+                        id: shortid.generate(),
+                        description: 'Add answer title',
+                        associatedResult: 'Select related result',
+                        }]
                     }]
-                }]
-            }]
-        }
+                }],
+                editId: null,
+            }
+        }  
     }
 
     componentDidUpdate() {
@@ -45,16 +46,35 @@ class QuizManager extends Component {
 
     addQuiz() {
         const quizes = this.state.quizes.slice();
-        quizes.push({id: shortid.generate(), quiz: null});
+        let results = [{
+            id: shortid.generate(),
+            title: 'Add result title',
+            description: 'Add result description'}];
+        let questions = [];
+        let answers = [{
+            id: shortid.generate(),
+            description: 'Add answer text',
+            associatedResult: null}];
+        questions.push({id: shortid.generate(), title: 'Add question title', description: 'Add question Description', answers: answers});
+        quizes.push({'id': shortid.generate(), 'quizTitle':'Add a quiz title', 'results': results, 'questions': questions});
         this.setState({'quizes': quizes});
     }
-
+/*
     saveQuiz(quizId, quiz) {
         const quizes = this.state.quizes.slice();
         let i = quizes.map(item => item.id).indexOf(quizId);
         quizes[i].quiz = quiz;
         this.setState({'quizes':quizes})
     }
+*/
+    editQuiz(quizId) {
+        let i = this.state.quizes.map(item => item.id).indexOf(quizId);
+        this.setState({'editId': i});
+      }
+
+      saveQuiz() {
+          this.setState({'editId': null})
+      }
 
     //Quiz update functions
     addResult(quizId) {
@@ -88,7 +108,7 @@ class QuizManager extends Component {
         let i = quizes.map(item => item.id).indexOf(quizId);
         const results = quizes[i].results;
         let j = results.map(item => item.id).indexOf(resultId);
-        results.splice(i, 1);
+        results.splice(j, 1);
         this.setState({'quizes': quizes});
       }
     
@@ -128,8 +148,22 @@ class QuizManager extends Component {
         let i = quizes.map(item => item.id).indexOf(quizId);
         const questions = quizes[i].questions;
         let j = questions.map(item => item.id).indexOf(questionId);
-        questions.splice(i, 1);
+        questions.splice(j, 1);
         this.setState({'quizes': quizes});
+      }
+
+      updateQuizInfoTitle(quizId, title) {
+        const quizes = this.state.quizes.slice();
+        let i = quizes.map(item => item.id).indexOf(quizId);
+        quizes[i].quizTitle = title;
+        this.setState({'quizes':quizes})
+      }
+    
+      updateQuizInfoDescription(quizId, description) {
+        const quizes = this.state.quizes.slice();
+        let i = quizes.map(item => item.id).indexOf(quizId);
+        quizes[i].QuizDescription = description;
+        this.setState({'quizes':quizes})
       }
 
     //need updateQuestionTitle()
@@ -139,28 +173,49 @@ class QuizManager extends Component {
 
 
     render() {
-        return (
-            <div id="Quiz_manager" className="">Manage Quizes!
-                <div className="">Edit existing quiz
+        let editExisting = null
+        if (1) {
+            editExisting = 
+                    <div className="">Edit existing quiz:
+                        {this.state.quizes.map((quiz) => 
+                            <div className="">{quiz.quizTitle}<button className="addButton" onClick={() => this.editQuiz(quiz.id)}>Edit Quiz</button></div>
+                        )}
+                    </div>
+        }
 
+        if (this.state.editId == null) {
+            return (
+                <div id="Quiz_manager" className="">Manage Quizes!
+                    <div><button className="addButton" onClick={() => this.addQuiz()}>Add a new quiz!</button> </div>
+                        {editExisting}
                 </div>
-                <div className="addQuiz"> <button className="addButton" onClick={() => this.addQuiz()}>Add Quiz</button> </div>
-                    <Quiz 
-                        quiz = {this.state.quizes[0]}
-                        updateResultTitle={(...args) => this.updateResultTitle(...args)}
-                        updateResultDescription={(...args) => this.updateResultDescription(...args)}  
-                        addResult={(...args) => this.addResult(...args)} 
-                        deleteResult={(...args) => this.deleteResult(...args)} 
 
-                        addAnswers={() => this.addAnswer()} 
-                        addAnswerButtonText={this.state.addAnswerButtonText} 
-                        addQuestion={(...args) => this.addQuestion(...args)}
-                        deleteQuestion={(...args) => this.deleteQuestion(...args)}
-                        addAnswer={(...args) => this.addAnswer(...args)}
-                        deleteAnswer={(...args) => this.deleteAnswer(...args)}  
-                    />
-            </div>
-        );
+            );
+        }
+
+        if (this.state.editId != null){
+
+            return (
+                <div className="">
+                        <Quiz 
+                            quiz = {this.state.quizes[this.state.editId]}
+                            saveQuiz = {(...args) => this.saveQuiz(...args)}
+                            updateQuizInfoTitle={(...args) => this.updateQuizInfoTitle(...args)}
+                            updateQuizInfoDescription={(...args) => this.updateQuizInfoDescription(...args)} 
+                            updateResultTitle={(...args) => this.updateResultTitle(...args)}
+                            updateResultDescription={(...args) => this.updateResultDescription(...args)}  
+                            addResult={(...args) => this.addResult(...args)} 
+                            deleteResult={(...args) => this.deleteResult(...args)} 
+                            addAnswers={() => this.addAnswer()} 
+                            addAnswerButtonText={this.state.addAnswerButtonText} 
+                            addQuestion={(...args) => this.addQuestion(...args)}
+                            deleteQuestion={(...args) => this.deleteQuestion(...args)}
+                            addAnswer={(...args) => this.addAnswer(...args)}
+                            deleteAnswer={(...args) => this.deleteAnswer(...args)}  
+                        />
+                </div>
+            );
+        }
     }
 
 
