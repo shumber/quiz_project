@@ -133,9 +133,8 @@ class QuizManager extends Component {
         this.setState({'quizes': quizes});
       }
 
-      updateTest(){
+      updateTest(quizId){
         const quizes = this.state.quizes.slice();
-        
       }
 
     //need updateQuestionTitle()
@@ -164,9 +163,11 @@ class QuizManager extends Component {
                         addAnswer={(...args) => this.addAnswer(...args)}
                         deleteAnswer={(...args) => this.deleteAnswer(...args)}  
                     />
-            <button className="saveButton" onClick={() => this.props.updateTest()}> >Preview your test</button>
-            <Testtaking/>
-
+            <button className="saveButton" onClick={() => this.updateTest()}> >Preview your test</button>
+            <Testtaking
+            quiz = {this.state.quizes[quizId]}
+            upadateTest={(...args) => this.updateTest(...args)}
+            />
             </div>
         );
     }
